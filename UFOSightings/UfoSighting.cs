@@ -12,6 +12,21 @@ namespace UFOSightings
         public string State { get; set; }
         public string Country { get; set; }
         public string Details { get; set; }
+
+
+        public override string ToString()
+        {
+            StringBuilder sightingFormatted = new StringBuilder();
+            sightingFormatted.Append($"Date: {SightingDate} || City: {City} || State: {State} Country: {Country}");
+            sightingFormatted.Append($"\n");
+            sightingFormatted.Append($"\nDetails: {Details}");
+            sightingFormatted.Append("\n__________________________________________________________________________________");
+            return sightingFormatted.ToString();
+        }
+
+
+
     }
+
 
 }

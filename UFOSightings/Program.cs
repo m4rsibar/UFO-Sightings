@@ -15,7 +15,8 @@ namespace UFOSightings
             var directory = new DirectoryInfo(currentDirectory);
             var fileName = Path.Combine(directory.FullName, "ufo.csv");
             //call method to read ufo data and store in variable.
-            var fileContents = ReadUfoResults(fileName);
+            var ufoData = ReadUfoResults(fileName);
+            var fileContents = ufoData;
 
             //Menu
             StringBuilder menu = new StringBuilder();
@@ -40,7 +41,7 @@ namespace UFOSightings
                 switch (input)
                 {
                     case "1":
-                        PrintList(fileContents);
+                        PrintList(ufoData);
                         //Console.WriteLine(fileContents.Count + " total number of passengers");
                         Console.WriteLine(menu.ToString());
 
@@ -76,38 +77,48 @@ namespace UFOSightings
                         switch (decadeParsed)
                         {
                             case 1:
-                                chosenDecade = 1940;
+                                chosenDecade = 1949;
                                 PrintDecade(chosenDecade);
-                                Console.WriteLine();
                                 //run method to write fitting sightings to screen. //
+                                fileContents = DecadeSightings(ufoData,chosenDecade);
+                                //WriteUfoResults(fileContents);
+
+                                //StringBuilder decadeList = new StringBuilder();
+                                //foreach (UfoSighting sighting in fileContents)
+                                //{
+                                //    decadeList.Append($"\n{sighting}");
+                                //    decadeList.Append("\n============================================");
+
+                                //}
+                                PrintList(fileContents);
                                 break;
                             case 2:
                                 chosenDecade = 1950;
-                                Console.WriteLine("You selected 1950's");
+                                PrintDecade(chosenDecade);
                                 break;
                             case 3:
                                 chosenDecade = 1960;
-                                Console.WriteLine("You selected 1960's");
+                                PrintDecade(chosenDecade);
                                 break;
                             case 4:
                                 chosenDecade = 1970;
-                                Console.WriteLine("You selected 1970's");
+                                PrintDecade(chosenDecade);
                                 break;
                             case 5:
                                 chosenDecade = 1980;
-                                Console.WriteLine("You selected 1980's");
+                                PrintDecade(chosenDecade);
                                 break;
                             case 6:
                                 chosenDecade = 1990;
-                                Console.WriteLine("You selected 1990's");
+                                PrintDecade(chosenDecade);
                                 break;
                             case 7:
                                 chosenDecade = 2000;
-                                Console.WriteLine("You selected 2000's");
+                                PrintDecade(chosenDecade);
                                 break;
                             case 8:
                                 chosenDecade = 2010;
-                                Console.WriteLine("You selected 2010's");
+                                PrintDecade(chosenDecade);
                                 break;
                             default:
                                 Console.WriteLine("1 through 8 only.");
@@ -127,6 +138,18 @@ namespace UFOSightings
 
        }
 
+        public static List<UfoSighting> DecadeSightings(List<UfoSighting> sightings, int decade)
+        {
+            List<UfoSighting> decadeSighting = new List<UfoSighting>();
+            foreach (UfoSighting sighting in sightings)
+            {
+                if (sighting.SightingDate.Year == decade)
+                {
+                    decadeSighting.Add(sighting);
+                }
+            }
+            return decadeSighting;
+        }
 
         private static void PrintDecade(int chosenDecade)
         {
@@ -138,6 +161,18 @@ namespace UFOSightings
             foreach (var sighting in sightings)
             {
                 Console.WriteLine(sighting.ToString());
+            }
+        }
+
+        private static void WriteUfoResults(List<UfoSighting> fileContents)
+        {
+            using (var writer = File.AppendText("UpdatedUfoSightings.csv"))
+            {
+                writer.WriteLine("DateTime,City,State,Country,Comments");
+                foreach (var sighting in fileContents)
+                {
+                    writer.WriteLine(sighting.SightingDate + "," + sighting.City + "," + sighting.State +","+ sighting.Country +","+ sighting.Details);
+                }
             }
         }
 
@@ -164,8 +199,8 @@ namespace UFOSightings
                     var state = values[2].ToUpper();
                     ufoSighting.City = city;
                     ufoSighting.State = state;
-                    var country= CultureInfo.CurrentCulture.TextInfo.ToTitleCase(values[1]);
-                    ufoSighting.Country = values[3].ToUpper();
+                    var country= CultureInfo.CurrentCulture.TextInfo.ToUpper(values[3]);
+                    ufoSighting.Country = country;
                     ufoSighting.Details = values[7];
                     ufoResults.Add(ufoSighting);
                 }
