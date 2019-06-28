@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Globalization;
 using System.Text;
+using System.Linq;
 
 namespace UFOSightings
 {
@@ -74,51 +75,57 @@ namespace UFOSightings
                         Int32.TryParse(decade, out decadeParsed);
 
                         int chosenDecade = 0;
+
                         switch (decadeParsed)
                         {
                             case 1:
-                                chosenDecade = 1949;
+                                chosenDecade = 1940;
                                 PrintDecade(chosenDecade);
                                 //run method to write fitting sightings to screen. //
                                 fileContents = DecadeSightings(ufoData,chosenDecade);
-                                //WriteUfoResults(fileContents);
-
-                                //StringBuilder decadeList = new StringBuilder();
-                                //foreach (UfoSighting sighting in fileContents)
-                                //{
-                                //    decadeList.Append($"\n{sighting}");
-                                //    decadeList.Append("\n============================================");
-
-                                //}
                                 PrintList(fileContents);
                                 break;
                             case 2:
                                 chosenDecade = 1950;
                                 PrintDecade(chosenDecade);
+                                fileContents = DecadeSightings(ufoData, chosenDecade);
+                                PrintList(fileContents);
                                 break;
                             case 3:
                                 chosenDecade = 1960;
                                 PrintDecade(chosenDecade);
+                                fileContents = DecadeSightings(ufoData, chosenDecade);
+                                PrintList(fileContents);
                                 break;
                             case 4:
                                 chosenDecade = 1970;
                                 PrintDecade(chosenDecade);
+                                fileContents = DecadeSightings(ufoData, chosenDecade);
+                                PrintList(fileContents);
                                 break;
                             case 5:
                                 chosenDecade = 1980;
                                 PrintDecade(chosenDecade);
+                                fileContents = DecadeSightings(ufoData, chosenDecade);
+                                PrintList(fileContents);
                                 break;
                             case 6:
                                 chosenDecade = 1990;
                                 PrintDecade(chosenDecade);
+                                fileContents = DecadeSightings(ufoData, chosenDecade);
+                                PrintList(fileContents);
                                 break;
                             case 7:
                                 chosenDecade = 2000;
                                 PrintDecade(chosenDecade);
+                                fileContents = DecadeSightings(ufoData, chosenDecade);
+                                PrintList(fileContents);
                                 break;
                             case 8:
                                 chosenDecade = 2010;
                                 PrintDecade(chosenDecade);
+                                fileContents = DecadeSightings(ufoData, chosenDecade);
+                                PrintList(fileContents);
                                 break;
                             default:
                                 Console.WriteLine("1 through 8 only.");
@@ -141,15 +148,20 @@ namespace UFOSightings
         public static List<UfoSighting> DecadeSightings(List<UfoSighting> sightings, int decade)
         {
             List<UfoSighting> decadeSighting = new List<UfoSighting>();
+
+            decadeSighting = decadeSighting.OrderBy(x => x.SightingDate).ToList();
+    
             foreach (UfoSighting sighting in sightings)
             {
-                if (sighting.SightingDate.Year == decade)
+                if ((sighting.SightingDate.Year >= decade) && (sighting.SightingDate.Year <= decade+9))
                 {
                     decadeSighting.Add(sighting);
                 }
             }
             return decadeSighting;
         }
+
+
 
         private static void PrintDecade(int chosenDecade)
         {

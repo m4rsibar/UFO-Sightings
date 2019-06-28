@@ -12,7 +12,13 @@ namespace UFOSightings
         public string State { get; set; }
         public string Country { get; set; }
         public string Details { get; set; }
-
+        public string FullLocation
+        {
+            get
+            {
+                return $"{City}, {State}, {Country}";
+            }
+        }
 
         public override string ToString()
         {
@@ -23,9 +29,6 @@ namespace UFOSightings
             sightingFormatted.Append("\n__________________________________________________________________________________");
             return sightingFormatted.ToString();
         }
-
-
-
     }
 
 
