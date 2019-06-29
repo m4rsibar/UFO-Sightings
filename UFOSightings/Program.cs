@@ -87,51 +87,34 @@ namespace UFOSightings
                                 break;
                             case 2:
                                 chosenDecade = 1950;
-                                PrintDecade(chosenDecade);
-                                fileContents = DecadeSightings(ufoData, chosenDecade);
-                                PrintList(fileContents);
                                 break;
                             case 3:
                                 chosenDecade = 1960;
-                                PrintDecade(chosenDecade);
-                                fileContents = DecadeSightings(ufoData, chosenDecade);
-                                PrintList(fileContents);
                                 break;
                             case 4:
                                 chosenDecade = 1970;
-                                PrintDecade(chosenDecade);
-                                fileContents = DecadeSightings(ufoData, chosenDecade);
-                                PrintList(fileContents);
                                 break;
                             case 5:
                                 chosenDecade = 1980;
-                                PrintDecade(chosenDecade);
-                                fileContents = DecadeSightings(ufoData, chosenDecade);
-                                PrintList(fileContents);
                                 break;
                             case 6:
                                 chosenDecade = 1990;
-                                PrintDecade(chosenDecade);
-                                fileContents = DecadeSightings(ufoData, chosenDecade);
-                                PrintList(fileContents);
                                 break;
                             case 7:
                                 chosenDecade = 2000;
-                                PrintDecade(chosenDecade);
-                                fileContents = DecadeSightings(ufoData, chosenDecade);
-                                PrintList(fileContents);
                                 break;
                             case 8:
                                 chosenDecade = 2010;
-                                PrintDecade(chosenDecade);
-                                fileContents = DecadeSightings(ufoData, chosenDecade);
-                                PrintList(fileContents);
                                 break;
                             default:
                                 Console.WriteLine("1 through 8 only.");
                                 Console.WriteLine(dateMenu.ToString());
                                 break;
                         }
+                        PrintDecade(chosenDecade);
+                        fileContents = DecadeSightings(ufoData, chosenDecade);
+                        PrintList(fileContents);
+
 
                         break;
 
